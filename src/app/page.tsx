@@ -59,6 +59,7 @@ export default function Home() {
   const { messages, sendMessage, status, stop } = useChat({});
 
   const [inputValue, setInputValue] = useState("");
+  const [feedbackGiven, setFeedbackGiven] = useState<Record<string, string>>({});
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
@@ -91,6 +92,21 @@ export default function Home() {
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Send feedback to API
+  const sendFeedback = async (messageId: string, rating: "thumbs_up" | "thumbs_down") => {
+    if (feedbackGiven[messageId]) return; // Already gave feedback
+    setFeedbackGiven((prev) => ({ ...prev, [messageId]: rating }));
+    try {
+      await fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ conversationId: messageId, rating }),
+      });
+    } catch {
+      // Silently fail — feedback is non-critical
+    }
   };
 
   // Handle form submission
@@ -284,10 +300,26 @@ export default function Home() {
                     {/* Feedback Buttons for Assistant messages */}
                     {message.role === "assistant" && text && (
                       <div className="flex items-center gap-2 mt-1.5 ml-1">
-                        <button className="p-1 rounded hover:bg-white/5 text-slate-600 hover:text-emerald-400 transition-colors">
+                        <button
+                          onClick={() => sendFeedback(message.id, "thumbs_up")}
+                          disabled={!!feedbackGiven[message.id]}
+                          className={`p-1 rounded transition-colors ${
+                            feedbackGiven[message.id] === "thumbs_up"
+                              ? "text-emerald-400 bg-emerald-500/10"
+                              : "text-slate-600 hover:bg-white/5 hover:text-emerald-400"
+                          } disabled:cursor-default`}
+                        >
                           <ThumbsUp className="w-3.5 h-3.5" />
                         </button>
-                        <button className="p-1 rounded hover:bg-white/5 text-slate-600 hover:text-red-400 transition-colors">
+                        <button
+                          onClick={() => sendFeedback(message.id, "thumbs_down")}
+                          disabled={!!feedbackGiven[message.id]}
+                          className={`p-1 rounded transition-colors ${
+                            feedbackGiven[message.id] === "thumbs_down"
+                              ? "text-red-400 bg-red-500/10"
+                              : "text-slate-600 hover:bg-white/5 hover:text-red-400"
+                          } disabled:cursor-default`}
+                        >
                           <ThumbsDown className="w-3.5 h-3.5" />
                         </button>
                       </div>
