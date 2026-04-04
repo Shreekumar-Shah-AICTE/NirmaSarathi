@@ -1,0 +1,62 @@
+{
+  "name": "projects/3769684814754353149",
+  "projectId": "3769684814754353149",
+  "title": "NirmaSarathi — Cosmic Campus AI",
+  "designSystemName": "Aetheric Nebula",
+  "designSystemAssetId": "ea76097b5d594c01b4287bbc1565b2b9",
+  "visibility": "PRIVATE",
+  "projectType": "PROJECT_DESIGN",
+  "origin": "STITCH",
+  "deviceType": "DESKTOP",
+  "designTheme": {
+    "colorMode": "DARK",
+    "font": "INTER",
+    "roundness": "ROUND_EIGHT",
+    "customColor": "#7C3AED",
+    "overridePrimaryColor": "#7C3AED",
+    "overrideSecondaryColor": "#8B5CF6",
+    "overrideTertiaryColor": "#06B6D4",
+    "overrideNeutralColor": "#06061a"
+  },
+  "screens": {
+    "chat": {
+      "title": "NirmaSarathi Chat Interface",
+      "id": "f74849535734425980fdce921d177638",
+      "sourceScreen": "projects/3769684814754353149/screens/f74849535734425980fdce921d177638",
+      "width": 2560,
+      "height": 2396,
+      "screenshotUrl": "https://lh3.googleusercontent.com/aida/ADBb0ujer6Co-tm9RQ0zm9_lRX7x1QD85U3slZVRq5indWpQoPjh0IcmqrhPv_AhqQkkwtuuqtIMl6f3Qi-yyZAkZvPj7CYws_Y2TtSIl-RhuE3PUAsjjkGRF24zVgd4CJgbHrwVj3tQXhE5RM2GtdqOF6bbPWY80ywVp8eaHt3crwlsZXXZ_JRZQIfErQV7z_uoemiWLvrl3ormU4o9moXnzKh4dof8nfpDURsb5bJMLmsVwPOpehXxHEK0LiA",
+      "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzgwMWI3MGZjMmExNjRlNmViOWE2YmZhMDIyNTU2OGYyEgsSBxCZ7MqelhsYAZIBIwoKcHJvamVjdF9pZBIVQhMzNzY5Njg0ODE0NzU0MzUzMTQ5&filename=&opi=96797242"
+    },
+    "admin": {
+      "title": "Admin Intelligence Dashboard",
+      "id": "eee818f31a0e49c394c7f8954942e9dc",
+      "sourceScreen": "projects/3769684814754353149/screens/eee818f31a0e49c394c7f8954942e9dc",
+      "width": 2560,
+      "height": 3662,
+      "screenshotUrl": "https://lh3.googleusercontent.com/aida/ADBb0uilNkrGNNH5O8oUJ4rmGwoQyZCqMB-CQEJGJJ5qGV1JnxUZ-YzuJAmLp6MaSb3hURyi-WwP-i0-jMWFRbc6pCeLJ3B87sG4M3hB12aplZNKwNieQm_-qILJA2MUSjlBLEETEhEgDA8m84_FN6-OVzTafhwv1OFYkc-EB1IqQjgBPVxeUV1cFB1Nq-MujK0Dfx4p6kUUDx0Lb330TV6nNcI5lNc40IL37SVSgImF97APQZ-TXmvd17RoeMI",
+      "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzY4NDM2NTk4N2Y2MDRjMjJhMzhhZWI0YTI1N2Q2ZGFiEgsSBxCZ7MqelhsYAZIBIwoKcHJvamVjdF9pZBIVQhMzNzY5Njg0ODE0NzU0MzUzMTQ5&filename=&opi=96797242"
+    },
+    "grievance-track": {
+      "title": "Track Grievances Portal",
+      "id": "d1eb77e4b75b437e9a2c493cc5233134",
+      "sourceScreen": "projects/3769684814754353149/screens/d1eb77e4b75b437e9a2c493cc5233134",
+      "width": 2720,
+      "height": 2894,
+      "screenshotUrl": "https://lh3.googleusercontent.com/aida/ADBb0uh30gC9pS7BsqswGEa7vj2aS6JrMHRYVzjE1kKd813pwYhocmPrg3H5rWzRDE0wLxgz4Qs2OaBXxITqKdnVizhavbIk__Y3B0X-MjjUataBbrp9kWxRmNlKJ1kyoSa7opDaMftBKtNjXEYuwcE_HmQkY8Htpa0QLaKcK4Uv6VR7jsNuZAZifjs1ar5X8Nhsyhhyn8VyLSHqbNR3pFc9PZ_6cenQ3ACv382326ExoZ1vw9S2o-DAOGfmaA",
+      "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2MxNmI2NjlmNGY5MTRhM2Q5Y2FhZGQxYjIzZTNiZTc5EgsSBxCZ7MqelhsYAZIBIwoKcHJvamVjdF9pZBIVQhMzNzY5Njg0ODE0NzU0MzUzMTQ5&filename=&opi=96797242"
+    },
+    "grievance-file": {
+      "title": "File Grievance Portal",
+      "id": "e445483f27ee4fb08b773ed85f4624f3",
+      "sourceScreen": "projects/3769684814754353149/screens/e445483f27ee4fb08b773ed85f4624f3",
+      "width": 2560,
+      "height": 2684,
+      "screenshotUrl": "https://lh3.googleusercontent.com/aida/ADBb0uhLByoTF0-z43Qa4SIhWYRUZ0xCWtEqqpnx0wyR6HQEovJfMzs5Xs_QwqPIoDzus5-uhXn1m8YDqnFDz5NrdLSSBRZ4EJ0Btdf67EsJQ-NBiOK2npDTaT0boXFghOc2xYMebCZpceWHS6x2336kVxTdNk6xbZ4GQxXPxsV23tASXctggn55ROlfu5SWs1J4p_UPk-MrbTGyso2q-jK0ff0VaPShdU6-TBWUBCWwrSYHvsg5ckSoT542Xx8",
+      "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzc1Mzc0ZDUxMjY3MDQzNTRhNjc5YzNlODYyZDk5MDFjEgsSBxCZ7MqelhsYAZIBIwoKcHJvamVjdF9pZBIVQhMzNzY5Njg0ODE0NzU0MzUzMTQ5&filename=&opi=96797242"
+    }
+  },
+  "metadata": {
+    "userRole": "OWNER"
+  }
+}
