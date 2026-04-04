@@ -1,9 +1,13 @@
-import { google } from "@ai-sdk/google";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { streamText, convertToModelMessages, type UIMessage } from "ai";
 import { getSystemPrompt } from "@/lib/system-prompt";
 import { prisma } from "@/lib/prisma";
 
 export const maxDuration = 30;
+
+const googleAI = createGoogleGenerativeAI({
+  apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+});
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
@@ -19,12 +23,13 @@ export async function POST(req: Request) {
   // Convert UI messages to model messages (async in v6)
   const modelMessages = await convertToModelMessages(messages);
 
+  // Using gemini-2.5-flash — best free-tier model (Pro requires paid billing since Apr 2026)
   const result = streamText({
-    model: google("gemini-2.5-pro"),
+    model: googleAI("gemini-2.5-flash"),
     system: getSystemPrompt(lang as "en" | "hi" | "gu"),
     messages: modelMessages,
     temperature: 0.7,
-    maxOutputTokens: 1024,
+    maxOutputTokens: 2048,
 
     // Log conversation to DB after completion (non-blocking)
     async onFinish({ text }) {
