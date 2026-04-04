@@ -1,0 +1,16 @@
+.env
+.env.local
+.env.production
+node_modules/
+.next/
+out/
+dist/
+*.db
+*.db-journal
+src/generated/
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+npm-debug.log*
