@@ -1,6 +1,8 @@
 .env
+.env.*
 .env.local
 .env.production
+temp.env
 node_modules/
 .next/
 out/
