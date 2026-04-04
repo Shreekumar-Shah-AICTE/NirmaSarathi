@@ -15,11 +15,61 @@ const CATEGORIES = [
 ];
 
 const SAMPLE_GRIEVANCES = [
-  { id: "NS-GRIEV-007", date: "Apr 4, 2026", status: "Open", statusColor: "amber", category: "Infrastructure", dept: "IT Department", priority: "High", desc: "WiFi connectivity in Hostel Block C has been extremely poor for the last 3 days. Multiple students affected." },
-  { id: "NS-GRIEV-006", date: "Apr 3, 2026", status: "In Progress", statusColor: "cyan", category: "Hostel", dept: "Hostel Admin", priority: "Medium", desc: "Mess food quality has deteriorated significantly. Multiple complaints from residents of Block A." },
-  { id: "NS-GRIEV-005", date: "Apr 2, 2026", status: "Resolved", statusColor: "emerald", category: "Library", dept: "Library Services", priority: "Low", desc: "Request for extended library hours during examination period has been approved." },
-  { id: "NS-GRIEV-004", date: "Apr 1, 2026", status: "Escalated", statusColor: "pink", category: "Academic", dept: "CSE Department", priority: "High", desc: "Grading discrepancy in Data Structures CAE-1. Multiple students reporting incorrect marks." },
-  { id: "NS-GRIEV-003", date: "Mar 31, 2026", status: "Open", statusColor: "amber", category: "Financial", dept: "Accounts", priority: "Medium", desc: "Scholarship amount not reflected in fee statement for the current semester." },
+  {
+    id: "#NS-2023-9081",
+    title: "Intermittent WiFi connectivity in Block C Library",
+    status: "Open",
+    statusColor: "#f59e0b",
+    category: "INFRASTRUCTURE",
+    dept: "IT SERVICES",
+    priority: "HIGH PRIORITY",
+    priorityColor: "#ef4444",
+    desc: "Students have reported frequent disconnections during peak hours (2 PM - 5 PM). Multiple access points appear to be offline or under heavy load.",
+  },
+  {
+    id: "#NS-2023-8922",
+    title: "Water leakage in Ground Floor corridor",
+    status: "In Progress",
+    statusColor: "#22d3ee",
+    category: "MAINTENANCE",
+    dept: "ESTATE MANAGEMENT",
+    priority: "MEDIUM PRIORITY",
+    priorityColor: "#f59e0b",
+    desc: "Maintenance team has been dispatched to investigate the ceiling leak near the main auditorium entrance. Expected fix by EOD.",
+  },
+  {
+    id: "#NS-2023-8755",
+    title: "Request for Extended Lab Hours - Exam Week",
+    status: "Resolved",
+    statusColor: "#10b981",
+    category: "ACADEMIC",
+    dept: "LAB ADMIN",
+    priority: "NORMAL PRIORITY",
+    priorityColor: "#94a3b8",
+    desc: "Approved by the Academic Council. Computer Lab 04 will remain open until 10 PM throughout the semester final examination period.",
+  },
+  {
+    id: "#NS-2023-9120",
+    title: "Harassment report - Hostel Wing B",
+    status: "Escalated",
+    statusColor: "#ec4899",
+    category: "SAFETY",
+    dept: "STUDENT WELFARE",
+    priority: "CRITICAL PRIORITY",
+    priorityColor: "#ef4444",
+    desc: "Forwarded to Internal Complaints Committee (ICC). Formal inquiry initiated. Privacy protections are active for all involved parties.",
+  },
+  {
+    id: "#NS-2023-9004",
+    title: "Correction of Name in Digital ID Card",
+    status: "In Progress",
+    statusColor: "#22d3ee",
+    category: "ADMINISTRATIVE",
+    dept: "REGISTRAR OFFICE",
+    priority: "NORMAL PRIORITY",
+    priorityColor: "#94a3b8",
+    desc: "Verification of submitted documents (Aadhar/Passport) is complete. Updating database records for ID re-issuance.",
+  },
 ];
 
 export default function GrievancePortal() {
@@ -48,7 +98,6 @@ export default function GrievancePortal() {
         setSubmitted(true);
       }
     } catch {
-      // Still show success for demo
       setSubmitted(true);
     } finally {
       setIsSubmitting(false);
@@ -62,84 +111,146 @@ export default function GrievancePortal() {
     setEnrollmentNo("");
   };
 
-  const statusBorderColors: Record<string, string> = {
-    amber: "border-l-amber-500",
-    cyan: "border-l-cyan-500",
-    emerald: "border-l-emerald-500",
-    pink: "border-l-pink-500",
-  };
-
-  const statusBadgeColors: Record<string, string> = {
-    amber: "bg-amber-500/10 text-amber-500 border-amber-500/20",
-    cyan: "bg-cyan-500/10 text-cyan-500 border-cyan-500/20",
-    emerald: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
-    pink: "bg-pink-500/10 text-pink-500 border-pink-500/20",
-  };
-
   const filteredGrievances = SAMPLE_GRIEVANCES.filter(
     (g) =>
       g.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      g.desc.toLowerCase().includes(searchQuery.toLowerCase())
+      g.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      g.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
-    <div className="font-body selection:bg-primary-container/30 min-h-screen" style={{ backgroundColor: "#06061a", color: "#e2e0fd" }}>
+    <div style={{ backgroundColor: "#06061a", color: "#e2e0fd", fontFamily: "'Inter', sans-serif", minHeight: "100vh" }}>
       {/* Ambient Background Elements */}
       <div className="nebula-blob" style={{ top: "-10%", left: "-10%", width: "500px", height: "500px", background: "#7c3aed" }}></div>
       <div className="nebula-blob" style={{ bottom: "-10%", right: "-10%", width: "600px", height: "600px", background: "#4cd7f6" }}></div>
 
-      {/* ═══ TopNavBar ═══ */}
-      <nav className="fixed top-0 w-full z-50 bg-[#06061a]/60 backdrop-blur-xl border-b border-violet-500/10 shadow-[0px_20px_40px_rgba(124,58,237,0.15)] flex justify-between items-center px-8 py-4">
+      {/* ═══ TopNavBar — From Stitch Grievance Portal ═══ */}
+      <nav
+        className="fixed top-0 w-full z-50 flex justify-between items-center"
+        style={{
+          backgroundColor: "rgba(6,6,26,0.6)",
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)",
+          borderBottom: "1px solid rgba(139,92,246,0.1)",
+          boxShadow: "0px 20px 40px rgba(124,58,237,0.15)",
+          padding: "16px 32px",
+        }}
+      >
         <div className="flex items-center gap-6">
           <div className="flex flex-col">
-            <span className="text-xl font-bold tracking-tighter text-violet-400">NirmaSarathi</span>
-            <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Grievance Portal</span>
+            <span style={{ fontSize: "20px", fontWeight: 700, letterSpacing: "-0.05em", color: "#a78bfa" }}>NirmaSarathi</span>
+            <span style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.1em", color: "#64748b", fontWeight: 700 }}>Grievance Portal</span>
           </div>
         </div>
+        <div className="hidden md:flex items-center gap-6">
+          <a style={{ fontSize: "14px", color: "#a78bfa", fontWeight: 500 }} href="#">Dashboard</a>
+          <a style={{ fontSize: "14px", color: "#94a3b8" }} href="#" className="hover:text-violet-300 transition-colors">Analytics</a>
+          <a style={{ fontSize: "14px", color: "#94a3b8" }} href="#" className="hover:text-violet-300 transition-colors">Reports</a>
+        </div>
         <div className="flex items-center gap-4">
-          <Link href="/" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-500/10 hover:bg-violet-500/20 text-violet-400 text-sm font-medium transition-all active:scale-95">
-            <span className="material-symbols-outlined text-sm">chat</span>
+          <Link
+            href="/"
+            className="flex items-center gap-2 active:scale-95 transition-all"
+            style={{
+              padding: "8px 16px",
+              borderRadius: "8px",
+              backgroundColor: "rgba(139,92,246,0.1)",
+              color: "#a78bfa",
+              fontSize: "14px",
+              fontWeight: 500,
+              textDecoration: "none",
+            }}
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>chat</span>
             Back to Chat
           </Link>
+          <button style={{ color: "#94a3b8", background: "none", border: "none", cursor: "pointer" }}>
+            <span className="material-symbols-outlined">refresh</span>
+          </button>
         </div>
       </nav>
 
       {/* ═══ Main Content ═══ */}
-      <main className="pt-32 pb-20 px-4 md:px-8 max-w-6xl mx-auto">
-        {/* Header */}
-        <header className="mb-12 text-center animate-fade-in-up">
-          <span className="text-tertiary-fixed font-bold tracking-[0.2em] text-xs uppercase mb-3 block">Official Recourse</span>
-          <h1 className="text-5xl md:text-6xl font-black tracking-tight mb-4 text-on-surface">
-            Submit Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-container to-tertiary">Concern.</span>
+      <main style={{ paddingTop: "128px", paddingBottom: "80px", paddingLeft: "16px", paddingRight: "16px", maxWidth: "72rem", margin: "0 auto" }}
+        className="md:!px-8"
+      >
+        {/* Header — From Stitch */}
+        <header className="animate-fade-in-up" style={{ marginBottom: "48px", textAlign: "center" }}>
+          <span style={{ color: "#4cd7f6", fontWeight: 700, letterSpacing: "0.2em", fontSize: "12px", textTransform: "uppercase", marginBottom: "12px", display: "block" }}>
+            Official Recourse
+          </span>
+          <h1 style={{ fontSize: "clamp(2.5rem, 5vw, 3.75rem)", fontWeight: 900, letterSpacing: "-0.025em", marginBottom: "16px", color: "#e2e0fd" }}>
+            Submit Your{" "}
+            <span style={{ color: "transparent", backgroundClip: "text", WebkitBackgroundClip: "text", backgroundImage: "linear-gradient(to right, #7c3aed, #4cd7f6)" }}>
+              Concern.
+            </span>
           </h1>
-          <p className="text-on-surface-variant max-w-2xl mx-auto text-lg leading-relaxed">
+          <p style={{ color: "#ccc3d8", maxWidth: "42rem", margin: "0 auto", fontSize: "18px", lineHeight: 1.6 }}>
             Your feedback shapes the future of our campus. File a grievance securely and track its resolution in real-time.
           </p>
         </header>
 
-        {/* Tab Switcher */}
-        <div className="flex justify-center mb-12">
-          <div className="bg-surface-container-low/40 backdrop-blur-md p-1.5 rounded-2xl flex gap-1 border border-white/5">
+        {/* Tab Switcher — From Stitch */}
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "48px" }}>
+          <div
+            style={{
+              backgroundColor: "rgba(25,25,46,0.4)",
+              backdropFilter: "blur(12px)",
+              padding: "6px",
+              borderRadius: "16px",
+              display: "flex",
+              gap: "4px",
+              border: "1px solid rgba(255,255,255,0.05)",
+            }}
+          >
             <button
               onClick={() => { setActiveTab("file"); setSubmitted(false); }}
-              className={`px-8 py-3 rounded-xl font-semibold flex items-center gap-2 transition-all ${
-                activeTab === "file"
-                  ? "bg-primary-container text-on-primary-container shadow-[0px_0px_20px_rgba(124,58,237,0.3)]"
-                  : "text-on-surface-variant hover:text-on-surface hover:bg-white/5"
-              }`}
+              className="flex items-center gap-2 transition-all"
+              style={{
+                padding: "12px 32px",
+                borderRadius: "12px",
+                fontWeight: 600,
+                border: "none",
+                cursor: "pointer",
+                fontSize: "14px",
+                ...(activeTab === "file"
+                  ? {
+                      backgroundColor: "#7c3aed",
+                      color: "#ede0ff",
+                      boxShadow: "0px 0px 20px rgba(124,58,237,0.3)",
+                    }
+                  : {
+                      backgroundColor: "transparent",
+                      color: "#ccc3d8",
+                    }),
+              }}
             >
-              <span className="material-symbols-outlined">edit_note</span>
+              <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>edit_note</span>
               File Grievance
             </button>
             <button
               onClick={() => setActiveTab("track")}
-              className={`px-8 py-3 rounded-xl font-medium transition-all flex items-center gap-2 ${
-                activeTab === "track"
-                  ? "bg-tertiary-container text-on-tertiary-container shadow-[0px_0px_20px_rgba(6,182,212,0.3)]"
-                  : "text-on-surface-variant hover:text-on-surface hover:bg-white/5"
-              }`}
+              className="flex items-center gap-2 transition-all"
+              style={{
+                padding: "12px 32px",
+                borderRadius: "12px",
+                fontWeight: 500,
+                border: "none",
+                cursor: "pointer",
+                fontSize: "14px",
+                ...(activeTab === "track"
+                  ? {
+                      backgroundColor: "#007184",
+                      color: "#b7efff",
+                      boxShadow: "0px 0px 20px rgba(6,182,212,0.3)",
+                    }
+                  : {
+                      backgroundColor: "transparent",
+                      color: "#ccc3d8",
+                    }),
+              }}
             >
-              <span className="material-symbols-outlined">analytics</span>
+              <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>analytics</span>
               Track Grievances
             </button>
           </div>
@@ -147,134 +258,266 @@ export default function GrievancePortal() {
 
         {/* ═══ FILE GRIEVANCE TAB ═══ */}
         {activeTab === "file" && !submitted && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in-up">
-            <section className="lg:col-span-8 space-y-8">
-              <div className="bg-surface-container-low/20 backdrop-blur-xl rounded-[2rem] border border-white/5 p-8 md:p-10">
-                <h2 className="text-xl font-bold mb-8 flex items-center gap-3">
-                  <span className="w-2 h-8 bg-primary rounded-full"></span>
-                  Select Category
-                </h2>
+          <div className="animate-fade-in-up" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "32px", alignItems: "start" }}>
+            <style>{`
+              @media (min-width: 1024px) { .ns-file-grid { grid-template-columns: 8fr 4fr !important; } }
+            `}</style>
+            <div className="ns-file-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "32px", alignItems: "start" }}>
+              <section>
+                <div
+                  style={{
+                    backgroundColor: "rgba(25,25,46,0.2)",
+                    backdropFilter: "blur(24px)",
+                    WebkitBackdropFilter: "blur(24px)",
+                    borderRadius: "2rem",
+                    border: "1px solid rgba(255,255,255,0.05)",
+                    padding: "32px",
+                  }}
+                  className="md:!p-10"
+                >
+                  <h2 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "32px", display: "flex", alignItems: "center", gap: "12px" }}>
+                    <span style={{ width: "8px", height: "32px", backgroundColor: "#d2bbff", borderRadius: "9999px", display: "inline-block" }}></span>
+                    Select Category
+                  </h2>
 
-                {/* Category Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-                  {CATEGORIES.map((cat) => (
-                    <div
-                      key={cat.name}
-                      onClick={() => setSelectedCategory(cat.name)}
-                      className={`group relative p-6 rounded-2xl cursor-pointer transition-all ${
-                        selectedCategory === cat.name
-                          ? "bg-surface-container-high/60 border-2 border-primary scale-[1.02] shadow-[0px_0px_30px_rgba(124,58,237,0.2)]"
-                          : "bg-surface-container-low/40 border border-white/5 hover:border-violet-500/30 hover:bg-surface-container-high/60"
-                      }`}
-                    >
-                      <div className="text-4xl mb-3">{cat.emoji}</div>
-                      <h3 className={`font-bold text-sm ${selectedCategory === cat.name ? "text-on-surface" : "text-slate-300"}`}>{cat.name}</h3>
-                      <p className="text-[10px] text-slate-500 mt-1 leading-tight">{cat.desc}</p>
-                      {selectedCategory === cat.name && (
-                        <div className="absolute top-3 right-3 text-primary">
-                          <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                  {/* Category Grid — 2x4 from Stitch */}
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px", marginBottom: "48px" }}>
+                    <style>{`
+                      @media (min-width: 768px) { .ns-cat-grid { grid-template-columns: repeat(4, 1fr) !important; } }
+                    `}</style>
+                    <div className="ns-cat-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
+                      {CATEGORIES.map((cat) => (
+                        <div
+                          key={cat.name}
+                          onClick={() => setSelectedCategory(cat.name)}
+                          style={{
+                            position: "relative",
+                            padding: "24px",
+                            borderRadius: "16px",
+                            cursor: "pointer",
+                            transition: "all 0.2s",
+                            ...(selectedCategory === cat.name
+                              ? {
+                                  backgroundColor: "rgba(40,40,62,0.6)",
+                                  border: "2px solid #d2bbff",
+                                  transform: "scale(1.02)",
+                                  boxShadow: "0px 0px 30px rgba(124,58,237,0.2)",
+                                }
+                              : {
+                                  backgroundColor: "rgba(25,25,46,0.4)",
+                                  border: "1px solid rgba(255,255,255,0.05)",
+                                }),
+                          }}
+                        >
+                          <div style={{ fontSize: "36px", marginBottom: "12px" }}>{cat.emoji}</div>
+                          <h3 style={{ fontWeight: 700, fontSize: "14px", color: selectedCategory === cat.name ? "#e2e0fd" : "#cbd5e1" }}>{cat.name}</h3>
+                          <p style={{ fontSize: "10px", color: "#64748b", marginTop: "4px", lineHeight: 1.4 }}>{cat.desc}</p>
+                          {selectedCategory === cat.name && (
+                            <div style={{ position: "absolute", top: "12px", right: "12px", color: "#d2bbff" }}>
+                              <span className="material-symbols-outlined" style={{ fontSize: "18px", fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                            </div>
+                          )}
                         </div>
-                      )}
+                      ))}
                     </div>
-                  ))}
-                </div>
-
-                {/* Input Fields */}
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-semibold mb-2 text-on-surface-variant">Detailed Description</label>
-                    <textarea
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      className="w-full bg-surface-container-highest/20 backdrop-blur-sm border border-white/10 rounded-2xl p-4 text-on-surface focus:ring-2 focus:ring-primary-container outline-none transition-all placeholder:text-slate-600"
-                      placeholder="Please describe your concern in detail..."
-                      rows={5}
-                    />
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                  {/* Input Fields */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
                     <div>
-                      <label className="block text-sm font-semibold mb-2 text-on-surface-variant">
-                        Enrollment Number <span className="text-[10px] font-normal text-slate-500 uppercase tracking-widest ml-1">(optional)</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={enrollmentNo}
-                        onChange={(e) => setEnrollmentNo(e.target.value)}
-                        className="w-full bg-surface-container-highest/20 backdrop-blur-sm border border-white/10 rounded-2xl p-4 text-on-surface focus:ring-2 focus:ring-primary-container outline-none transition-all placeholder:text-slate-600"
-                        placeholder="e.g. 21BCE100"
+                      <label style={{ display: "block", fontSize: "14px", fontWeight: 600, marginBottom: "8px", color: "#ccc3d8" }}>Detailed Description</label>
+                      <textarea
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        style={{
+                          width: "100%",
+                          backgroundColor: "rgba(51,51,73,0.2)",
+                          backdropFilter: "blur(8px)",
+                          border: "1px solid rgba(255,255,255,0.1)",
+                          borderRadius: "16px",
+                          padding: "16px",
+                          color: "#e2e0fd",
+                          outline: "none",
+                          transition: "all 0.2s",
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: "14px",
+                          resize: "vertical",
+                        }}
+                        placeholder="Please describe your concern in detail..."
+                        rows={5}
                       />
                     </div>
-                    <div className="flex items-end">
-                      <button
-                        onClick={handleSubmit}
-                        disabled={!selectedCategory || !description.trim() || isSubmitting}
-                        className="w-full h-[58px] bg-gradient-to-r from-primary-container to-secondary-container rounded-2xl font-bold text-white shadow-[0px_10px_30px_rgba(124,58,237,0.3)] hover:shadow-[0px_15px_40px_rgba(124,58,237,0.5)] transition-all flex items-center justify-center gap-3 active:scale-95 group disabled:opacity-40 disabled:cursor-not-allowed"
-                      >
-                        {isSubmitting ? "Submitting..." : "Submit Grievance"}
-                        <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">send</span>
-                      </button>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "24px" }} className="md:!grid-cols-2">
+                      <div>
+                        <label style={{ display: "block", fontSize: "14px", fontWeight: 600, marginBottom: "8px", color: "#ccc3d8" }}>
+                          Enrollment Number{" "}
+                          <span style={{ fontSize: "10px", fontWeight: 400, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.1em", marginLeft: "4px" }}>(optional)</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={enrollmentNo}
+                          onChange={(e) => setEnrollmentNo(e.target.value)}
+                          style={{
+                            width: "100%",
+                            backgroundColor: "rgba(51,51,73,0.2)",
+                            backdropFilter: "blur(8px)",
+                            border: "1px solid rgba(255,255,255,0.1)",
+                            borderRadius: "16px",
+                            padding: "16px",
+                            color: "#e2e0fd",
+                            outline: "none",
+                            transition: "all 0.2s",
+                            fontFamily: "'Inter', sans-serif",
+                            fontSize: "14px",
+                          }}
+                          placeholder="e.g. 21BCE100"
+                        />
+                      </div>
+                      <div style={{ display: "flex", alignItems: "flex-end" }}>
+                        <button
+                          onClick={handleSubmit}
+                          disabled={!selectedCategory || !description.trim() || isSubmitting}
+                          className="group active:scale-95 transition-all"
+                          style={{
+                            width: "100%",
+                            height: "58px",
+                            background: "linear-gradient(to right, #7c3aed, #571bc1)",
+                            borderRadius: "16px",
+                            fontWeight: 700,
+                            color: "white",
+                            border: "none",
+                            cursor: !selectedCategory || !description.trim() || isSubmitting ? "not-allowed" : "pointer",
+                            boxShadow: "0px 10px 30px rgba(124,58,237,0.3)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "12px",
+                            fontSize: "16px",
+                            opacity: !selectedCategory || !description.trim() || isSubmitting ? 0.4 : 1,
+                            transition: "all 0.2s",
+                          }}
+                        >
+                          {isSubmitting ? "Submitting..." : "Submit Grievance"}
+                          <span className="material-symbols-outlined" style={{ transition: "transform 0.2s" }}>send</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            {/* Sidebar — Guidelines */}
-            <aside className="lg:col-span-4 space-y-6">
-              <div className="bg-surface-container-low/20 backdrop-blur-xl rounded-[2rem] border border-white/5 p-8">
-                <h3 className="font-bold text-on-surface mb-4">Portal Guidelines</h3>
-                <ul className="space-y-4">
-                  <li className="flex gap-3">
-                    <span className="material-symbols-outlined text-tertiary text-lg">privacy_tip</span>
-                    <p className="text-xs text-slate-400 leading-relaxed">Your identity is protected. Only necessary administrators can view your details.</p>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="material-symbols-outlined text-tertiary text-lg">attachment</span>
-                    <p className="text-xs text-slate-400 leading-relaxed">Evidence can be attached after the initial filing in the tracking tab.</p>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="material-symbols-outlined text-tertiary text-lg">schedule</span>
-                    <p className="text-xs text-slate-400 leading-relaxed">Most grievances are reviewed within 24-48 hours of submission.</p>
-                  </li>
-                </ul>
-              </div>
-            </aside>
+              {/* Sidebar — Guidelines */}
+              <aside style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                <div
+                  style={{
+                    backgroundColor: "rgba(25,25,46,0.2)",
+                    backdropFilter: "blur(24px)",
+                    WebkitBackdropFilter: "blur(24px)",
+                    borderRadius: "2rem",
+                    border: "1px solid rgba(255,255,255,0.05)",
+                    padding: "32px",
+                  }}
+                >
+                  <h3 style={{ fontWeight: 700, color: "#e2e0fd", marginBottom: "16px" }}>Portal Guidelines</h3>
+                  <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "16px" }}>
+                    <li style={{ display: "flex", gap: "12px" }}>
+                      <span className="material-symbols-outlined" style={{ color: "#4cd7f6", fontSize: "18px", flexShrink: 0 }}>privacy_tip</span>
+                      <p style={{ fontSize: "12px", color: "#94a3b8", lineHeight: 1.6 }}>Your identity is protected. Only necessary administrators can view your details.</p>
+                    </li>
+                    <li style={{ display: "flex", gap: "12px" }}>
+                      <span className="material-symbols-outlined" style={{ color: "#4cd7f6", fontSize: "18px", flexShrink: 0 }}>attachment</span>
+                      <p style={{ fontSize: "12px", color: "#94a3b8", lineHeight: 1.6 }}>Evidence can be attached after the initial filing in the tracking tab.</p>
+                    </li>
+                    <li style={{ display: "flex", gap: "12px" }}>
+                      <span className="material-symbols-outlined" style={{ color: "#4cd7f6", fontSize: "18px", flexShrink: 0 }}>schedule</span>
+                      <p style={{ fontSize: "12px", color: "#94a3b8", lineHeight: 1.6 }}>Most grievances are reviewed within 24-48 hours of submission.</p>
+                    </li>
+                  </ul>
+                </div>
+              </aside>
+            </div>
           </div>
         )}
 
         {/* ═══ SUCCESS STATE ═══ */}
         {activeTab === "file" && submitted && (
-          <div className="max-w-lg mx-auto animate-fade-in-up">
-            <div className="bg-surface-container-high/40 backdrop-blur-2xl rounded-[2rem] border border-white/10 p-8 shadow-2xl relative overflow-hidden">
-              <div className="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/10 blur-3xl"></div>
-              <div className="flex flex-col items-center text-center mb-6">
-                <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mb-4 border border-emerald-500/30">
-                  <span className="material-symbols-outlined text-emerald-400 text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+          <div className="animate-fade-in-up" style={{ maxWidth: "32rem", margin: "0 auto" }}>
+            <div
+              style={{
+                backgroundColor: "rgba(40,40,62,0.4)",
+                backdropFilter: "blur(48px)",
+                WebkitBackdropFilter: "blur(48px)",
+                borderRadius: "2rem",
+                border: "1px solid rgba(255,255,255,0.1)",
+                padding: "32px",
+                boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div style={{ position: "absolute", top: "-40px", right: "-40px", width: "128px", height: "128px", backgroundColor: "rgba(16,185,129,0.1)", filter: "blur(48px)" }}></div>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", marginBottom: "24px" }}>
+                <div
+                  style={{
+                    width: "64px",
+                    height: "64px",
+                    backgroundColor: "rgba(16,185,129,0.2)",
+                    borderRadius: "9999px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: "16px",
+                    border: "1px solid rgba(16,185,129,0.3)",
+                  }}
+                >
+                  <span className="material-symbols-outlined" style={{ color: "#34d399", fontSize: "30px", fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                 </div>
-                <h2 className="text-xl font-bold text-white">Grievance Filed Successfully!</h2>
-                <p className="text-sm text-slate-400 mt-2">Our intelligence module is routing this to the relevant department.</p>
+                <h2 style={{ fontSize: "20px", fontWeight: 700, color: "white" }}>Grievance Filed Successfully!</h2>
+                <p style={{ fontSize: "14px", color: "#94a3b8", marginTop: "8px" }}>Our intelligence module is routing this to the relevant department.</p>
               </div>
-              <div className="bg-surface-container-lowest/60 rounded-2xl p-5 border border-white/5 space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-slate-500 uppercase tracking-widest font-bold">Ticket ID</span>
-                  <span className="font-mono text-primary text-sm font-bold">NS-GRIEV-008</span>
+              <div
+                style={{
+                  backgroundColor: "rgba(12,12,32,0.6)",
+                  borderRadius: "16px",
+                  padding: "20px",
+                  border: "1px solid rgba(255,255,255,0.05)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "16px",
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: "12px", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700 }}>Ticket ID</span>
+                  <span style={{ fontFamily: "monospace", color: "#d2bbff", fontSize: "14px", fontWeight: 700 }}>NS-GRIEV-008</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-slate-500 uppercase tracking-widest font-bold">Category</span>
-                  <span className="text-on-surface text-sm">{selectedCategory}</span>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: "12px", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700 }}>Category</span>
+                  <span style={{ color: "#e2e0fd", fontSize: "14px" }}>{selectedCategory}</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-slate-500 uppercase tracking-widest font-bold">Status</span>
-                  <span className="bg-amber-500/10 text-amber-500 text-[10px] font-black uppercase px-2 py-1 rounded border border-amber-500/20">Open</span>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: "12px", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700 }}>Status</span>
+                  <span style={{ backgroundColor: "rgba(245,158,11,0.1)", color: "#f59e0b", fontSize: "10px", fontWeight: 900, textTransform: "uppercase", padding: "4px 8px", borderRadius: "4px", border: "1px solid rgba(245,158,11,0.2)" }}>Open</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-slate-500 uppercase tracking-widest font-bold">Estimated</span>
-                  <span className="text-on-surface text-sm">24-48 Hours</span>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: "12px", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700 }}>Estimated</span>
+                  <span style={{ color: "#e2e0fd", fontSize: "14px" }}>24-48 Hours</span>
                 </div>
               </div>
               <button
                 onClick={resetForm}
-                className="w-full mt-6 py-3 rounded-xl border border-white/10 text-slate-300 hover:bg-white/5 transition-all text-sm font-medium"
+                style={{
+                  width: "100%",
+                  marginTop: "24px",
+                  padding: "12px",
+                  borderRadius: "12px",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  color: "#cbd5e1",
+                  backgroundColor: "transparent",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  transition: "all 0.2s",
+                }}
               >
                 File Another Grievance
               </button>
@@ -282,44 +525,87 @@ export default function GrievancePortal() {
           </div>
         )}
 
-        {/* ═══ TRACK GRIEVANCES TAB ═══ */}
+        {/* ═══ TRACK GRIEVANCES TAB — From Stitch Track Grievances Portal ═══ */}
         {activeTab === "track" && (
-          <div className="space-y-6 animate-fade-in-up">
+          <div className="animate-fade-in-up" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
             {/* Search Bar */}
-            <div className="relative max-w-2xl mx-auto">
-              <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">search</span>
+            <div style={{ position: "relative", maxWidth: "42rem", margin: "0 auto", width: "100%" }}>
+              <span className="material-symbols-outlined" style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", color: "#64748b" }}>search</span>
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-surface-container-highest/20 backdrop-blur-sm border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-on-surface focus:ring-2 focus:ring-tertiary-container outline-none transition-all placeholder:text-slate-600"
-                placeholder="Search by ticket ID or description..."
+                style={{
+                  width: "100%",
+                  backgroundColor: "rgba(51,51,73,0.2)",
+                  backdropFilter: "blur(8px)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  borderRadius: "16px",
+                  paddingLeft: "48px",
+                  paddingRight: "16px",
+                  paddingTop: "16px",
+                  paddingBottom: "16px",
+                  color: "#e2e0fd",
+                  outline: "none",
+                  transition: "all 0.2s",
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "14px",
+                }}
+                placeholder="Search by Ticket ID or Keyword..."
               />
             </div>
 
-            {/* Grievance Cards */}
-            <div className="space-y-4 max-w-4xl mx-auto">
+            {/* Grievance Cards — From Stitch Track Grievances Portal */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px", maxWidth: "56rem", margin: "0 auto", width: "100%" }}>
               {filteredGrievances.map((g) => (
                 <div
                   key={g.id}
-                  className={`glass-panel rounded-2xl p-6 border-l-[3px] ${statusBorderColors[g.statusColor]} hover:bg-white/[0.02] transition-all`}
+                  className="glass-panel"
+                  style={{
+                    borderRadius: "16px",
+                    padding: "24px 32px",
+                    borderLeft: `3px solid ${g.statusColor}`,
+                    transition: "all 0.2s",
+                  }}
                 >
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-primary text-sm font-bold">{g.id}</span>
-                      <span className="text-xs text-slate-500">{g.date}</span>
-                    </div>
-                    <span className={`px-2.5 py-1 rounded text-[10px] font-black uppercase border ${statusBadgeColors[g.statusColor]}`}>
+                  {/* Ticket ID + Status */}
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
+                    <span style={{ fontFamily: "monospace", color: "#94a3b8", fontSize: "12px" }}>{g.id}</span>
+                    <span
+                      style={{
+                        padding: "4px 12px",
+                        borderRadius: "9999px",
+                        fontSize: "11px",
+                        fontWeight: 700,
+                        color: g.statusColor,
+                        border: `1px solid ${g.statusColor}40`,
+                        backgroundColor: `${g.statusColor}15`,
+                      }}
+                    >
                       {g.status}
                     </span>
                   </div>
-                  <p className="text-sm text-on-surface-variant leading-relaxed mb-3 line-clamp-2">{g.desc}</p>
-                  <div className="flex items-center gap-3">
-                    <span className="px-2 py-0.5 rounded bg-white/5 text-[10px] font-medium text-slate-400">{g.category}</span>
-                    <span className="text-[10px] text-slate-500">{g.dept}</span>
-                    {g.priority === "High" && (
-                      <span className="px-2 py-0.5 rounded bg-red-500/10 text-[10px] font-bold text-red-400 border border-red-500/20">HIGH</span>
-                    )}
+                  {/* Title */}
+                  <h3 style={{ fontSize: "18px", fontWeight: 700, color: "white", marginBottom: "12px" }}>{g.title}</h3>
+                  {/* Description */}
+                  <p style={{ fontSize: "14px", color: "#ccc3d8", lineHeight: 1.6, marginBottom: "16px" }}>{g.desc}</p>
+                  {/* Tags */}
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+                    <span style={{ padding: "4px 10px", borderRadius: "6px", backgroundColor: "rgba(255,255,255,0.08)", fontSize: "10px", fontWeight: 600, color: "#94a3b8", textTransform: "uppercase" }}>{g.category}</span>
+                    <span style={{ padding: "4px 10px", borderRadius: "6px", backgroundColor: "rgba(255,255,255,0.08)", fontSize: "10px", fontWeight: 600, color: "#94a3b8", textTransform: "uppercase" }}>{g.dept}</span>
+                    <span
+                      style={{
+                        padding: "4px 10px",
+                        borderRadius: "6px",
+                        backgroundColor: `${g.priorityColor}15`,
+                        fontSize: "10px",
+                        fontWeight: 700,
+                        color: g.priorityColor,
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {g.priority}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -329,18 +615,33 @@ export default function GrievancePortal() {
       </main>
 
       {/* ═══ Mobile Bottom Nav ═══ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full z-50 bg-[#0c0c20]/80 backdrop-blur-2xl border-t border-white/5 flex justify-around py-4">
-        <button onClick={() => setActiveTab("file")} className={`flex flex-col items-center gap-1 ${activeTab === "file" ? "text-cyan-400" : "text-slate-500"}`}>
+      <div
+        className="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around"
+        style={{
+          backgroundColor: "rgba(12,12,32,0.8)",
+          backdropFilter: "blur(48px)",
+          WebkitBackdropFilter: "blur(48px)",
+          borderTop: "1px solid rgba(255,255,255,0.05)",
+          padding: "16px 0",
+        }}
+      >
+        <button
+          onClick={() => setActiveTab("file")}
+          style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", background: "none", border: "none", cursor: "pointer", color: activeTab === "file" ? "#22d3ee" : "#64748b" }}
+        >
           <span className="material-symbols-outlined" style={activeTab === "file" ? { fontVariationSettings: "'FILL' 1" } : {}}>edit_note</span>
-          <span className="text-[10px] font-bold">File</span>
+          <span style={{ fontSize: "10px", fontWeight: 700 }}>File</span>
         </button>
-        <button onClick={() => setActiveTab("track")} className={`flex flex-col items-center gap-1 ${activeTab === "track" ? "text-cyan-400" : "text-slate-500"}`}>
+        <button
+          onClick={() => setActiveTab("track")}
+          style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", background: "none", border: "none", cursor: "pointer", color: activeTab === "track" ? "#22d3ee" : "#64748b" }}
+        >
           <span className="material-symbols-outlined" style={activeTab === "track" ? { fontVariationSettings: "'FILL' 1" } : {}}>analytics</span>
-          <span className="text-[10px] font-bold">Track</span>
+          <span style={{ fontSize: "10px", fontWeight: 700 }}>Track</span>
         </button>
-        <Link href="/" className="flex flex-col items-center gap-1 text-slate-500">
+        <Link href="/" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", color: "#64748b", textDecoration: "none" }}>
           <span className="material-symbols-outlined">chat</span>
-          <span className="text-[10px] font-bold">Oracle</span>
+          <span style={{ fontSize: "10px", fontWeight: 700 }}>Oracle</span>
         </Link>
       </div>
     </div>

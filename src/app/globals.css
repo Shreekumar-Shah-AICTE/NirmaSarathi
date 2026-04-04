@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap");
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
@@ -7,68 +7,86 @@
 /* =============================================
    AETHERIC NEBULA — NirmaSarathi Design System
    Ported from Google Stitch 2.0 exports
+   
+   CRITICAL: Tailwind v4 @theme can't properly 
+   generate utilities for multi-hyphen color names.
+   We define CSS variables + manual utility classes.
    ============================================= */
 
-@theme {
+:root {
   /* === Stitch Aetheric Nebula Color Tokens === */
-  --color-background: #06061a;
-  --color-surface: #111126;
-  --color-surface-dim: #111126;
-  --color-surface-bright: #37374e;
-  --color-surface-container: #1d1e33;
-  --color-surface-container-low: #19192e;
-  --color-surface-container-lowest: #0c0c20;
-  --color-surface-container-high: #28283e;
-  --color-surface-container-highest: #333349;
-  --color-surface-variant: #333349;
-  --color-surface-tint: #d2bbff;
+  --ns-background: #06061a;
+  --ns-surface: #111126;
+  --ns-surface-dim: #111126;
+  --ns-surface-bright: #37374e;
+  --ns-surface-container: #1d1e33;
+  --ns-surface-container-low: #19192e;
+  --ns-surface-container-lowest: #0c0c20;
+  --ns-surface-container-high: #28283e;
+  --ns-surface-container-highest: #333349;
+  --ns-surface-variant: #333349;
+  --ns-surface-tint: #d2bbff;
 
-  --color-primary: #d2bbff;
-  --color-primary-container: #7c3aed;
-  --color-primary-fixed: #eaddff;
-  --color-primary-fixed-dim: #d2bbff;
-  --color-on-primary: #3f008e;
-  --color-on-primary-container: #ede0ff;
-  --color-on-primary-fixed: #25005a;
-  --color-on-primary-fixed-variant: #5a00c6;
-  --color-inverse-primary: #732ee4;
+  --ns-primary: #d2bbff;
+  --ns-primary-container: #7c3aed;
+  --ns-primary-fixed: #eaddff;
+  --ns-primary-fixed-dim: #d2bbff;
+  --ns-on-primary: #3f008e;
+  --ns-on-primary-container: #ede0ff;
+  --ns-on-primary-fixed: #25005a;
+  --ns-on-primary-fixed-variant: #5a00c6;
+  --ns-inverse-primary: #732ee4;
 
-  --color-secondary: #d0bcff;
-  --color-secondary-container: #571bc1;
-  --color-secondary-fixed: #e9ddff;
-  --color-secondary-fixed-dim: #d0bcff;
-  --color-on-secondary: #3c0091;
-  --color-on-secondary-container: #c4abff;
-  --color-on-secondary-fixed: #23005c;
-  --color-on-secondary-fixed-variant: #5516be;
+  --ns-secondary: #d0bcff;
+  --ns-secondary-container: #571bc1;
+  --ns-secondary-fixed: #e9ddff;
+  --ns-secondary-fixed-dim: #d0bcff;
+  --ns-on-secondary: #3c0091;
+  --ns-on-secondary-container: #c4abff;
+  --ns-on-secondary-fixed: #23005c;
+  --ns-on-secondary-fixed-variant: #5516be;
 
-  --color-tertiary: #4cd7f6;
-  --color-tertiary-container: #007184;
-  --color-tertiary-fixed: #acedff;
-  --color-tertiary-fixed-dim: #4cd7f6;
-  --color-on-tertiary: #003640;
-  --color-on-tertiary-container: #b7efff;
-  --color-on-tertiary-fixed: #001f26;
-  --color-on-tertiary-fixed-variant: #004e5c;
+  --ns-tertiary: #4cd7f6;
+  --ns-tertiary-container: #007184;
+  --ns-tertiary-fixed: #acedff;
+  --ns-tertiary-fixed-dim: #4cd7f6;
+  --ns-on-tertiary: #003640;
+  --ns-on-tertiary-container: #b7efff;
+  --ns-on-tertiary-fixed: #001f26;
+  --ns-on-tertiary-fixed-variant: #004e5c;
 
-  --color-on-surface: #e2e0fd;
-  --color-on-surface-variant: #ccc3d8;
-  --color-on-background: #e2e0fd;
-  --color-inverse-surface: #e2e0fd;
-  --color-inverse-on-surface: #2e2e44;
+  --ns-on-surface: #e2e0fd;
+  --ns-on-surface-variant: #ccc3d8;
+  --ns-on-background: #e2e0fd;
+  --ns-inverse-surface: #e2e0fd;
+  --ns-inverse-on-surface: #2e2e44;
 
-  --color-outline: #958da1;
-  --color-outline-variant: #4a4455;
+  --ns-outline: #958da1;
+  --ns-outline-variant: #4a4455;
 
-  --color-error: #ffb4ab;
-  --color-error-container: #93000a;
-  --color-on-error: #690005;
-  --color-on-error-container: #ffdad6;
+  --ns-error: #ffb4ab;
+  --ns-error-container: #93000a;
+  --ns-on-error: #690005;
+  --ns-on-error-container: #ffdad6;
+}
 
-  /* Font families */
+/* ===================================================
+   Tailwind v4 @theme — ONLY simple color names work
+   =================================================== */
+@theme {
   --font-headline: "Inter", sans-serif;
   --font-body: "Inter", sans-serif;
   --font-label: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Simple names that Tailwind v4 handles correctly */
+  --color-background: #06061a;
+  --color-surface: #111126;
+  --color-primary: #d2bbff;
+  --color-secondary: #d0bcff;
+  --color-tertiary: #4cd7f6;
+  --color-error: #ffb4ab;
+  --color-outline: #958da1;
 }
 
 /* === Global Resets === */
@@ -94,8 +112,117 @@ body {
 
 /* === Material Symbols Configuration === */
 .material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
+
+/* ================================================================
+   MANUAL UTILITY CLASSES — Bypassing broken Tailwind v4 @theme
+   for multi-hyphen color names from Stitch design system
+   ================================================================ */
+
+/* --- Background Colors --- */
+.bg-background { background-color: var(--ns-background) !important; }
+.bg-surface { background-color: var(--ns-surface) !important; }
+.bg-surface-dim { background-color: var(--ns-surface-dim) !important; }
+.bg-surface-bright { background-color: var(--ns-surface-bright) !important; }
+.bg-surface-container { background-color: var(--ns-surface-container) !important; }
+.bg-surface-container-low { background-color: var(--ns-surface-container-low) !important; }
+.bg-surface-container-lowest { background-color: var(--ns-surface-container-lowest) !important; }
+.bg-surface-container-high { background-color: var(--ns-surface-container-high) !important; }
+.bg-surface-container-highest { background-color: var(--ns-surface-container-highest) !important; }
+.bg-surface-variant { background-color: var(--ns-surface-variant) !important; }
+.bg-primary-container { background-color: var(--ns-primary-container) !important; }
+.bg-primary-fixed { background-color: var(--ns-primary-fixed) !important; }
+.bg-secondary-container { background-color: var(--ns-secondary-container) !important; }
+.bg-tertiary-container { background-color: var(--ns-tertiary-container) !important; }
+.bg-error-container { background-color: var(--ns-error-container) !important; }
+
+/* --- Background Colors with Opacity --- */
+.bg-surface-container-low\/40 { background-color: rgba(25, 25, 46, 0.4) !important; }
+.bg-surface-container-low\/20 { background-color: rgba(25, 25, 46, 0.2) !important; }
+.bg-surface-container-high\/60 { background-color: rgba(40, 40, 62, 0.6) !important; }
+.bg-surface-container-high\/40 { background-color: rgba(40, 40, 62, 0.4) !important; }
+.bg-surface-container-highest\/40 { background-color: rgba(51, 51, 73, 0.4) !important; }
+.bg-surface-container-highest\/20 { background-color: rgba(51, 51, 73, 0.2) !important; }
+.bg-primary-container\/20 { background-color: rgba(124, 58, 237, 0.2) !important; }
+.bg-primary-container\/30 { background-color: rgba(124, 58, 237, 0.3) !important; }
+.bg-secondary-container\/20 { background-color: rgba(87, 27, 193, 0.2) !important; }
+.bg-tertiary-container\/20 { background-color: rgba(0, 113, 132, 0.2) !important; }
+.bg-error-container\/20 { background-color: rgba(147, 0, 10, 0.2) !important; }
+.bg-error-container\/40 { background-color: rgba(147, 0, 10, 0.4) !important; }
+
+/* --- Text Colors --- */
+.text-on-surface { color: var(--ns-on-surface) !important; }
+.text-on-surface-variant { color: var(--ns-on-surface-variant) !important; }
+.text-on-background { color: var(--ns-on-background) !important; }
+.text-on-primary { color: var(--ns-on-primary) !important; }
+.text-on-primary-container { color: var(--ns-on-primary-container) !important; }
+.text-on-secondary { color: var(--ns-on-secondary) !important; }
+.text-on-secondary-container { color: var(--ns-on-secondary-container) !important; }
+.text-on-tertiary { color: var(--ns-on-tertiary) !important; }
+.text-on-tertiary-container { color: var(--ns-on-tertiary-container) !important; }
+.text-on-error { color: var(--ns-on-error) !important; }
+.text-on-error-container { color: var(--ns-on-error-container) !important; }
+.text-primary { color: var(--ns-primary) !important; }
+.text-primary-container { color: var(--ns-primary-container) !important; }
+.text-primary-fixed { color: var(--ns-primary-fixed) !important; }
+.text-primary-fixed-dim { color: var(--ns-primary-fixed-dim) !important; }
+.text-secondary { color: var(--ns-secondary) !important; }
+.text-secondary-container { color: var(--ns-secondary-container) !important; }
+.text-tertiary { color: var(--ns-tertiary) !important; }
+.text-tertiary-container { color: var(--ns-tertiary-container) !important; }
+.text-tertiary-fixed { color: var(--ns-tertiary-fixed) !important; }
+.text-tertiary-fixed-dim { color: var(--ns-tertiary-fixed-dim) !important; }
+.text-error { color: var(--ns-error) !important; }
+.text-error-container { color: var(--ns-error-container) !important; }
+.text-outline { color: var(--ns-outline) !important; }
+.text-outline-variant { color: var(--ns-outline-variant) !important; }
+.text-inverse-primary { color: var(--ns-inverse-primary) !important; }
+.text-inverse-surface { color: var(--ns-inverse-surface) !important; }
+.text-inverse-on-surface { color: var(--ns-inverse-on-surface) !important; }
+
+/* --- Border Colors --- */
+.border-primary-container { border-color: var(--ns-primary-container) !important; }
+.border-primary-container\/30 { border-color: rgba(124, 58, 237, 0.3) !important; }
+.border-secondary-container { border-color: var(--ns-secondary-container) !important; }
+.border-tertiary-container { border-color: var(--ns-tertiary-container) !important; }
+.border-error-container { border-color: var(--ns-error-container) !important; }
+.border-outline-variant { border-color: var(--ns-outline-variant) !important; }
+.border-surface-container-high { border-color: var(--ns-surface-container-high) !important; }
+
+/* --- Outline/Ring Colors --- */
+.ring-primary-container { --tw-ring-color: var(--ns-primary-container) !important; }
+
+/* --- Selection --- */
+.selection\:bg-primary-container *::selection,
+.selection\:bg-primary-container::selection {
+  background-color: rgba(124, 58, 237, 0.3) !important;
+}
+.selection\:bg-primary-container\/30 *::selection,
+.selection\:bg-primary-container\/30::selection {
+  background-color: rgba(124, 58, 237, 0.3) !important;
+}
+
+/* --- Donut border trick colors --- */
+.border-primary-container { border-color: var(--ns-primary-container) !important; }
+.border-tertiary-container { border-color: var(--ns-tertiary-container) !important; }
+.border-surface-container-high { border-color: var(--ns-surface-container-high) !important; }
+
+/* --- Specific bg-outline-variant --- */
+.bg-outline-variant { background-color: var(--ns-outline-variant) !important; }
 
 /* === Custom Scrollbar === */
 ::-webkit-scrollbar {
@@ -115,21 +242,10 @@ body {
 
 /* === Nebula Background Effects === */
 .nebula-bg {
-  background: radial-gradient(
-      circle at 20% 30%,
-      rgba(124, 58, 237, 0.15) 0%,
-      transparent 40%
-    ),
-    radial-gradient(
-      circle at 80% 70%,
-      rgba(6, 182, 212, 0.15) 0%,
-      transparent 40%
-    ),
-    radial-gradient(
-      circle at 50% 50%,
-      rgba(219, 39, 119, 0.05) 0%,
-      transparent 60%
-    );
+  background:
+    radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(219, 39, 119, 0.05) 0%, transparent 60%);
 }
 
 .nebula-blob {
@@ -143,7 +259,7 @@ body {
   pointer-events: none;
 }
 
-/* === Glassmorphism Classes === */
+/* === Glassmorphism Classes (exactly from Stitch exports) === */
 .glass-card {
   background: rgba(124, 58, 237, 0.06);
   backdrop-filter: blur(16px);
@@ -193,8 +309,7 @@ body {
 }
 
 @keyframes pulse-glow {
-  0%,
-  100% {
+  0%, 100% {
     transform: scale(1);
     opacity: 0.8;
   }
@@ -211,77 +326,39 @@ body {
 
 /* === Animations === */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 @keyframes typing-dot {
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 1;
-  }
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
 }
 
 @keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .animate-fade-in-up {
@@ -338,15 +415,9 @@ body {
   margin-bottom: 0.25rem;
   color: #e2e0fd;
 }
-.chat-markdown h1 {
-  font-size: 1.125rem;
-}
-.chat-markdown h2 {
-  font-size: 1rem;
-}
-.chat-markdown h3 {
-  font-size: 0.875rem;
-}
+.chat-markdown h1 { font-size: 1.125rem; }
+.chat-markdown h2 { font-size: 1rem; }
+.chat-markdown h3 { font-size: 0.875rem; }
 
 .chat-markdown p {
   margin-bottom: 0.5rem;
@@ -408,27 +479,31 @@ body {
 }
 
 /* === Stagger Delays === */
-.stagger > *:nth-child(1) {
-  animation-delay: 0ms;
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 80ms; }
+.stagger > *:nth-child(3) { animation-delay: 160ms; }
+.stagger > *:nth-child(4) { animation-delay: 240ms; }
+.stagger > *:nth-child(5) { animation-delay: 320ms; }
+.stagger > *:nth-child(6) { animation-delay: 400ms; }
+.stagger > *:nth-child(7) { animation-delay: 480ms; }
+.stagger > *:nth-child(8) { animation-delay: 560ms; }
+
+/* === Bar chart gradient (admin dashboard) === */
+.bar-gradient {
+  background: linear-gradient(180deg, #7C3AED 0%, rgba(124, 58, 237, 0) 100%);
 }
-.stagger > *:nth-child(2) {
-  animation-delay: 80ms;
+
+/* ================================================================
+   FOCUS RING OVERRIDE — prevent Tailwind v4 from adding 
+   blue outlines that clash with the cosmic theme
+   ================================================================ */
+input:focus, textarea:focus, select:focus, button:focus {
+  outline: none;
 }
-.stagger > *:nth-child(3) {
-  animation-delay: 160ms;
+.focus\:ring-primary-container:focus {
+  --tw-ring-color: var(--ns-primary-container);
+  box-shadow: 0 0 0 2px var(--ns-primary-container);
 }
-.stagger > *:nth-child(4) {
-  animation-delay: 240ms;
-}
-.stagger > *:nth-child(5) {
-  animation-delay: 320ms;
-}
-.stagger > *:nth-child(6) {
-  animation-delay: 400ms;
-}
-.stagger > *:nth-child(7) {
-  animation-delay: 480ms;
-}
-.stagger > *:nth-child(8) {
-  animation-delay: 560ms;
+.focus\:ring-2:focus {
+  box-shadow: 0 0 0 2px var(--ns-primary-container);
 }
