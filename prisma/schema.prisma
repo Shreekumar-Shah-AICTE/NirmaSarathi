@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// === GRIEVANCE SYSTEM ===
+model Grievance {
+  id          String   @id @default(cuid())
+  ticketId    String   @unique // e.g. GRV-INFRA-1712234567
+  category    String   // Academic, Infrastructure, Hostel, Library, Financial, Examination, Harassment, General
+  department  String   // Routed department
+  description String
+  status      String   @default("Open") // Open, In Progress, Resolved, Escalated
+  priority    String   @default("Medium") // Low, Medium, High, Critical
+  studentId   String?  // Optional enrollment number
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  resolvedAt  DateTime?
+
+  @@index([category])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// === CONVERSATION ANALYTICS ===
+model Conversation {
+  id        String   @id @default(cuid())
+  sessionId String
+  query     String
+  response  String
+  category  String?  // Auto-categorized topic
+  language  String   @default("en") // en, hi, gu
+  sentiment String?  // positive, neutral, negative, concern
+
+  createdAt DateTime @default(now())
+
+  @@index([category])
+  @@index([language])
+  @@index([sentiment])
+  @@index([createdAt])
+}
+
+// === FEEDBACK ===
+model Feedback {
+  id             String   @id @default(cuid())
+  conversationId String?
+  rating         String   // thumbs_up, thumbs_down
+  comment        String?
+
+  createdAt      DateTime @default(now())
+}
+
+// === WELLNESS FLAGS ===
+model WellnessFlag {
+  id          String   @id @default(cuid())
+  sessionId   String
+  triggerText String   // The text that triggered the flag
+  severity    String   @default("low") // low, medium, high
+  handled     Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+
+  @@index([severity])
+  @@index([handled])
+}
